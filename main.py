@@ -22,9 +22,11 @@ tk.title(language_metadata["Title"][default_language])
 current_plan_name = ""
 plans = []
 all_files = []
-for each in all_files:
-    if ".json" not in each or language_filename == each:
-        all_files.remove(each)
+all_files1 = os.listdir()
+for each in all_files1:
+    if ".json" in each and each != "language_file.json":
+        all_files.append(each.replace(".json", ""))
+print(all_files)
 plans = all_files
 
 """ --- """
@@ -48,12 +50,18 @@ def new_plan():
 
 
 def get_current_plan(event):
-    global plan_selected, current_plan_name
+    global plan_selected, current_plan_name, word_li, index_of_words
+    index_of_words = 0
     plan_selected = True
     try:
         current_plan_name = LB.get(LB.curselection()[0])
     except IndexError:
         pass
+    try:
+        with open(current_plan_name + ".json", "r", encoding="utf-8") as obj:
+            word_li = json.loads(obj.read())
+    except FileNotFoundError:
+        word_li = {}
     set_keys_2_word_li()
     print(keys)
     refresh_listbox(LB1, keys)
@@ -69,9 +77,8 @@ E1.grid(row=1, column=0)
 B2 = Button(F1, text=language_metadata["Create New Plan"][default_language], command=new_plan)
 B2.grid(row=2, column=0)
 
-
-
-
+for each in plans:
+    LB.insert(END, each)
 
 """ --- """
 
@@ -111,6 +118,7 @@ def check_if_finished():
 
 
 def update_word():
+    print(index_of_words)
     L2.configure(text=keys[index_of_words])
 
 
@@ -122,6 +130,7 @@ def confirm():
         crosses += 1
     if check_if_finished():
         show_result()
+        return
     index_of_words += 1
     update_word()
 
@@ -130,6 +139,7 @@ def skip():
     global index_of_words, crosses
     if check_if_finished():
         show_result()
+        return
     index_of_words += 1
     crosses += 1
     update_word()
@@ -161,7 +171,7 @@ def add_word():
     set_keys_2_word_li()
     refresh_listbox(LB1, keys)
     try:
-        with open(current_plan_name + ".json", "w+") as obj:
+        with open(current_plan_name + ".json", "w+", encoding="utf-8") as obj:
             obj.write(json.dumps(word_li))
     except FileNotFoundError:
         pass
