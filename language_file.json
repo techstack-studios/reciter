@@ -16,6 +16,10 @@
     "Wrong Percent": ["错误百分比：", "Wrong Percent: "],
     "Add New Word": ["添加新词", "Add New Word"],
     "Start Exam": ["开始测验", "Start Exam"],
-    "Plz CP": ["请先创建计划！", "Please create a plan first!"]
+    "Plz CP": ["请先创建计划！", "Please create a plan first!"],
+    "Language": ["语言", "Language"],
+    "CantBeEmpty": ["不能为空！", "Can't be empty!"],
+    "Warning": ["警告", "Warning"],
+    "Plz ChooseP": ["请先选择计划！", "Please choose a plan first!"]
 }
 

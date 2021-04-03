@@ -44,8 +44,14 @@ tk.config(menu=master_menu)
 
 def new_plan():
     global plans
-    plans.append(E1.get())
-    refresh_listbox(LB, plans)
+    plan_name = E1.get()
+    if plan_name == '':
+        tkinter.messagebox.showwarning(language_metadata["Title"][default_language],
+                                       language_metadata["CantBeEmpty"][default_language])
+    else:
+        plans.append(plan_name)
+        refresh_listbox(LB, plans)
+
 
 
 def get_current_plan(event):
@@ -96,6 +102,7 @@ def set_keys_2_word_li():
 
 def show_result():
     global index_of_words, crosses, ticks
+    E.delete(0, END)
     result = Tk()
     result.title(language_metadata["Result"][default_language])
     Tick_L = Label(result, text=language_metadata["Ticks"][default_language] + str(ticks))
@@ -107,7 +114,7 @@ def show_result():
     Tick_percent_L.grid(row=2, column=0)
     Wrong_percent_L.grid(row=3, column=0)
     index_of_words = crosses = ticks = 0
-    update_word()
+    L2.configure(text='')
 
 
 def check_if_finished():
@@ -119,6 +126,8 @@ def update_word():
     try:
         L2.configure(text=keys[index_of_words])
     except IndexError:
+        tkinter.messagebox.showwarning(language_metadata["Title"][default_language],
+                                       language_metadata["Plz ChooseP"][default_language])
         pass
 
 
@@ -133,17 +142,18 @@ def confirm():
         return
     index_of_words += 1
     update_word()
+    E.delete(0, END)
 
 
 def skip():
     global index_of_words, crosses
+    crosses += 1
     if check_if_finished():
         show_result()
         return
     index_of_words += 1
-    crosses += 1
     update_word()
-
+    E.delete(0, END)
 
 # For debug
 
@@ -166,15 +176,22 @@ L1.grid(row=4, column=0)
 def add_word():
     if not plan_selected:
         tkinter.messagebox.showwarning(language_metadata["Title"][default_language], language_metadata["Plz CP"][default_language])
-    global word_li
-    word_li[E3.get()] = E2.get()
-    set_keys_2_word_li()
-    refresh_listbox(LB1, keys)
-    try:
-        with open(current_plan_name + ".json", "w+", encoding="utf-8") as obj:
-            obj.write(json.dumps(word_li))
-    except FileNotFoundError:
-        pass
+    else:
+        global word_li
+        cur_word_chn = E2.get()
+        cur_word_eng = E3.get()
+        if cur_word_chn == '' or cur_word_eng == '':
+            tkinter.messagebox.showwarning(language_metadata["Title"][default_language],
+                                           language_metadata["CantBeEmpty"][default_language])
+        else:
+            word_li[cur_word_eng] = cur_word_chn
+            set_keys_2_word_li()
+            refresh_listbox(LB1, keys)
+            try:
+                with open(current_plan_name + ".json", "w+", encoding="utf-8") as obj:
+                    obj.write(json.dumps(word_li))
+            except FileNotFoundError:
+                pass
 
 
 B3 = Button(F3, text=language_metadata["Add New Word"][default_language], command=add_word)
