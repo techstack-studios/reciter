@@ -51,6 +51,7 @@ def new_plan():
     else:
         plans.append(plan_name)
         refresh_listbox(LB, plans)
+        E1.delete(0, END)
 
 
 
@@ -187,6 +188,8 @@ def add_word():
             word_li[cur_word_eng] = cur_word_chn
             set_keys_2_word_li()
             refresh_listbox(LB1, keys)
+            E2.delete(0, END)
+            E3.delete(0, END)
             try:
                 with open(current_plan_name + ".json", "w+", encoding="utf-8") as obj:
                     obj.write(json.dumps(word_li))
