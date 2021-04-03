@@ -8,5 +8,13 @@
     "Skip": ["跳过", "Skip"],
     "Create New Plan": ["创建新计划", "Create New Plan"],
     "Chinese": ["单词中文", "Word In Chinese"],
-    "English": ["单词英文", "Word In English"]
+    "English": ["单词英文", "Word In English"],
+    "Result": ["结果", "Result"],
+    "Ticks": ["正确：", "Ticks: "],
+    "Wrongs": ["错误：", "Wrongs: "],
+    "Tick Percent": ["正确百分比：", "Tick Percent: "],
+    "Wrong Percent": ["错误百分比：", "Wrong Percent: "],
+    "Add New Word": ["添加新词", "Add New Word"],
+    "Start Exam": ["开始测验", "Start Exam"]
 }
+
