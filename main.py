@@ -34,7 +34,8 @@ plans = all_files
 
 master_menu = Menu(tk)
 file_menu = Menu(master_menu)
-master_menu.add_cascade(label=language_metadata["File Menu"][default_language], menu=file_menu)
+master_menu.add_cascade(
+    label=language_metadata["File Menu"][default_language], menu=file_menu)
 tk.config(menu=master_menu)
 """ --- """
 
@@ -52,7 +53,6 @@ def new_plan():
         plans.append(plan_name)
         refresh_listbox(LB, plans)
         E1.delete(0, END)
-
 
 
 def get_current_plan(event):
@@ -79,7 +79,8 @@ LB.grid(row=0, column=0)
 LB.bind("<<ListboxSelect>>", func=get_current_plan)
 E1 = Entry(F1)
 E1.grid(row=1, column=0)
-B2 = Button(F1, text=language_metadata["Create New Plan"][default_language], command=new_plan)
+B2 = Button(
+    F1, text=language_metadata["Create New Plan"][default_language], command=new_plan)
 B2.grid(row=2, column=0)
 
 for each in plans:
@@ -106,12 +107,16 @@ def show_result():
     E.delete(0, END)
     result = Tk()
     result.title(language_metadata["Result"][default_language])
-    Tick_L = Label(result, text=language_metadata["Ticks"][default_language] + str(ticks))
-    Wrong_L = Label(result, text=language_metadata["Wrongs"][default_language] + str(crosses))
+    Tick_L = Label(
+        result, text=language_metadata["Ticks"][default_language] + str(ticks))
+    Wrong_L = Label(
+        result, text=language_metadata["Wrongs"][default_language] + str(crosses))
     Tick_L.grid(row=0, column=0)
     Wrong_L.grid(row=1, column=0)
-    Tick_percent_L = Label(result, text=language_metadata["Tick Percent"][default_language] + str(round((ticks / (ticks + crosses) * 100), 2)) + "%")
-    Wrong_percent_L = Label(result, text=language_metadata["Wrong Percent"][default_language] + str(round((crosses / (ticks + crosses) * 100), 2)) + "%")
+    Tick_percent_L = Label(result, text=language_metadata["Tick Percent"][default_language] + str(
+        round((ticks / (ticks + crosses) * 100), 2)) + "%")
+    Wrong_percent_L = Label(result, text=language_metadata["Wrong Percent"][default_language] + str(
+        round((crosses / (ticks + crosses) * 100), 2)) + "%")
     Tick_percent_L.grid(row=2, column=0)
     Wrong_percent_L.grid(row=3, column=0)
     index_of_words = crosses = ticks = 0
@@ -176,7 +181,8 @@ L1.grid(row=4, column=0)
 
 def add_word():
     if not plan_selected:
-        tkinter.messagebox.showwarning(language_metadata["Title"][default_language], language_metadata["Plz CP"][default_language])
+        tkinter.messagebox.showwarning(
+            language_metadata["Title"][default_language], language_metadata["Plz CP"][default_language])
     else:
         global word_li
         cur_word_chn = E2.get()
@@ -197,7 +203,8 @@ def add_word():
                 pass
 
 
-B3 = Button(F3, text=language_metadata["Add New Word"][default_language], command=add_word)
+B3 = Button(
+    F3, text=language_metadata["Add New Word"][default_language], command=add_word)
 B3.grid(row=5, column=0)
 
 """ --- """
@@ -206,14 +213,16 @@ B3.grid(row=5, column=0)
 
 F2 = Frame(tk, width=200, height=200)
 F2.grid(row=0, column=2)
-B4 = Button(F2, text=language_metadata["Start Exam"][default_language], command=update_word)
+B4 = Button(F2, text=language_metadata["Start Exam"]
+            [default_language], command=update_word)
 B4.grid(row=0, column=0)
 L2 = Label(F2, text="")
 L2.grid(row=1, column=0)
 L2.configure(text="")
 E = Entry(F2)
 E.grid(row=2, column=0)
-B = Button(F2, text=language_metadata["Confirm"][default_language], command=confirm)
+B = Button(F2, text=language_metadata["Confirm"]
+           [default_language], command=confirm)
 B.grid(row=3, column=0)
 B1 = Button(F2, text=language_metadata["Skip"][default_language], command=skip)
 B1.grid(row=4, column=0)
