@@ -110,8 +110,8 @@ def show_result():
     Wrong_L = Label(result, text=language_metadata["Wrongs"][default_language] + str(crosses))
     Tick_L.grid(row=0, column=0)
     Wrong_L.grid(row=1, column=0)
-    Tick_percent_L = Label(result, text=language_metadata["Tick Percent"][default_language] + str(ticks / (ticks + crosses) * 100) + "%")
-    Wrong_percent_L = Label(result, text=language_metadata["Wrong Percent"][default_language] + str(crosses / (ticks + crosses) * 100) + "%")
+    Tick_percent_L = Label(result, text=language_metadata["Tick Percent"][default_language] + str(round((ticks / (ticks + crosses) * 100), 2)) + "%")
+    Wrong_percent_L = Label(result, text=language_metadata["Wrong Percent"][default_language] + str(round((crosses / (ticks + crosses) * 100), 2)) + "%")
     Tick_percent_L.grid(row=2, column=0)
     Wrong_percent_L.grid(row=3, column=0)
     index_of_words = crosses = ticks = 0
