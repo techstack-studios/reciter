@@ -15,12 +15,6 @@ plans_filename = "plans_file.json"
 
 with open(language_filename, "r", encoding="utf-8") as obj:
     language_metadata = json.loads(obj.read())
-try:
-    with open(plans_filename) as obj:
-        plans_file = json.loads(obj.read())
-        plans_file_exists = True
-except FileNotFoundError:
-    pass
 
 tk = Tk()
 tk.title(language_metadata["Title"][default_language])
@@ -53,14 +47,23 @@ def new_plan():
     refresh_listbox(LB, plans)
 
 
-def get_current_plan(the_list_box):
-    print(the_list_box.curselection())
+def get_current_plan(event):
+    global plan_selected, current_plan_name
+    plan_selected = True
+    try:
+        current_plan_name = LB.get(LB.curselection()[0])
+    except IndexError:
+        pass
+    set_keys_2_word_li()
+    print(keys)
+    refresh_listbox(LB1, keys)
 
 
 F1 = Frame(tk, width=200, height=200)
 F1.grid(row=0, column=0)
-LB = Listbox(F1, command=)
+LB = Listbox(F1)
 LB.grid(row=0, column=0)
+LB.bind("<<ListboxSelect>>", func=get_current_plan)
 E1 = Entry(F1)
 E1.grid(row=1, column=0)
 B2 = Button(F1, text=language_metadata["Create New Plan"][default_language], command=new_plan)
@@ -151,11 +154,17 @@ L1.grid(row=4, column=0)
 
 
 def add_word():
+    if not plan_selected:
+        tkinter.messagebox.showwarning(language_metadata["Title"][default_language], language_metadata["Plz CP"][default_language])
     global word_li
     word_li[E3.get()] = E2.get()
     set_keys_2_word_li()
     refresh_listbox(LB1, keys)
-
+    try:
+        with open(current_plan_name + ".json", "w+") as obj:
+            obj.write(json.dumps(word_li))
+    except FileNotFoundError:
+        pass
 
 
 B3 = Button(F3, text=language_metadata["Add New Word"][default_language], command=add_word)
