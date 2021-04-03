@@ -26,7 +26,6 @@ all_files1 = os.listdir()
 for each in all_files1:
     if ".json" in each and each != "language_file.json":
         all_files.append(each.replace(".json", ""))
-print(all_files)
 plans = all_files
 
 """ --- """
@@ -63,7 +62,6 @@ def get_current_plan(event):
     except FileNotFoundError:
         word_li = {}
     set_keys_2_word_li()
-    print(keys)
     refresh_listbox(LB1, keys)
 
 
@@ -118,8 +116,10 @@ def check_if_finished():
 
 
 def update_word():
-    print(index_of_words)
-    L2.configure(text=keys[index_of_words])
+    try:
+        L2.configure(text=keys[index_of_words])
+    except IndexError:
+        pass
 
 
 def confirm():
