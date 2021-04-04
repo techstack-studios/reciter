@@ -1,7 +1,7 @@
 import json
 import os
 import tkinter
-from tkinter import Frame, Listbox, Label, Menu, Entry, messagebox, END, ttk
+from tkinter import Frame, Button, Label, Menu, Entry, messagebox, END
 
 # Init
 
@@ -80,7 +80,7 @@ LB.grid(row=0, column=0)
 LB.bind("<<ListboxSelect>>", func=get_current_plan)
 E1 = Entry(F1)
 E1.grid(row=1, column=0)
-B2 = ttk.Button(
+B2 = Button(
     F1, text=language_metadata["Create New Plan"][default_language], command=new_plan)
 B2.grid(row=2, column=0)
 
@@ -220,7 +220,7 @@ def add_word():
                 pass
 
 
-B3 = ttk.Button(
+B3 = Button(
     F3, text=language_metadata["Add New Word"][default_language], command=add_word)
 B3.grid(row=5, column=0)
 
@@ -230,7 +230,7 @@ B3.grid(row=5, column=0)
 
 F2 = Frame(tk, width=200, height=200)
 F2.grid(row=0, column=2)
-B4 = ttk.Button(F2, text=language_metadata["Start Exam"]
+B4 = Button(F2, text=language_metadata["Start Exam"]
 [default_language], command=update_word)
 B4.grid(row=0, column=0)
 L2 = Label(F2, text="")
@@ -238,10 +238,10 @@ L2.grid(row=1, column=0)
 L2.configure(text="")
 E = Entry(F2)
 E.grid(row=2, column=0)
-B = ttk.Button(F2, text=language_metadata["CONFIRM"]
+B = Button(F2, text=language_metadata["CONFIRM"]
 [default_language], command=confirm)
 B.grid(row=3, column=0)
-B1 = ttk.Button(F2, text=language_metadata["Skip"][default_language], command=skip)
+B1 = Button(F2, text=language_metadata["Skip"][default_language], command=skip)
 B1.grid(row=4, column=0)
 
 
