@@ -5,7 +5,7 @@ from tkinter import Frame, Button, Listbox, Label, Menu, Entry, messagebox, END
 
 # Init
 
-directory = os.path.dirname(__file__)  #
+directory = os.path.dirname(__file__)
 plan_selected = False
 default_language = 0  # 0-zh_cn, 1-en_us
 test_started = 0  # 0-not start   1-start
