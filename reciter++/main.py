@@ -1,8 +1,7 @@
-from tkinter import *
-import tkinter.messagebox
 import json
-import sys
 import os
+import tkinter
+from tkinter import Frame, Button, Listbox, Label, Menu, Entry, END
 
 """Init"""
 plan_selected = False
@@ -10,14 +9,14 @@ default_language = 0
 # 0 - Chinese
 # 1 - English
 plans_file_exists = False
-language_filename = "language_file.json"
+language_filename = "locale.json"
 plans_filename = "plans_file.json"
 
 with open(language_filename, "r", encoding="utf-8") as obj:
     language_metadata = json.loads(obj.read())
 
-tk = Tk()
-tk.title(language_metadata["Title"][default_language])
+tk = tkinter.Tk()
+tk.title(language_metadata["TITLE"][default_language])
 
 current_plan_name = ""
 plans = []
@@ -39,7 +38,6 @@ master_menu.add_cascade(
 tk.config(menu=master_menu)
 """ --- """
 
-
 """Plans View"""
 
 
@@ -47,7 +45,7 @@ def new_plan():
     global plans
     plan_name = E1.get()
     if plan_name == '':
-        tkinter.messagebox.showwarning(language_metadata["Title"][default_language],
+        tkinter.messagebox.showwarning(language_metadata["TITLE"][default_language],
                                        language_metadata["CantBeEmpty"][default_language])
     else:
         plans.append(plan_name)
@@ -105,7 +103,7 @@ def set_keys_2_word_li():
 def show_result():
     global index_of_words, crosses, ticks
     E.delete(0, END)
-    result = Tk()
+    result = tkinter.Tk()
     result.title(language_metadata["Result"][default_language])
     Tick_L = Label(
         result, text=language_metadata["Ticks"][default_language] + str(ticks))
@@ -132,7 +130,7 @@ def update_word():
     try:
         L2.configure(text=keys[index_of_words])
     except IndexError:
-        tkinter.messagebox.showwarning(language_metadata["Title"][default_language],
+        tkinter.messagebox.showwarning(language_metadata["TITLE"][default_language],
                                        language_metadata["Plz ChooseP"][default_language])
         pass
 
@@ -161,6 +159,7 @@ def skip():
     update_word()
     E.delete(0, END)
 
+
 # For debug
 
 
@@ -182,13 +181,13 @@ L1.grid(row=4, column=0)
 def add_word():
     if not plan_selected:
         tkinter.messagebox.showwarning(
-            language_metadata["Title"][default_language], language_metadata["Plz CP"][default_language])
+            language_metadata["TITLE"][default_language], language_metadata["Plz CP"][default_language])
     else:
         global word_li
         cur_word_chn = E2.get()
         cur_word_eng = E3.get()
         if cur_word_chn == '' or cur_word_eng == '':
-            tkinter.messagebox.showwarning(language_metadata["Title"][default_language],
+            tkinter.messagebox.showwarning(language_metadata["TITLE"][default_language],
                                            language_metadata["CantBeEmpty"][default_language])
         else:
             word_li[cur_word_eng] = cur_word_chn
@@ -214,7 +213,7 @@ B3.grid(row=5, column=0)
 F2 = Frame(tk, width=200, height=200)
 F2.grid(row=0, column=2)
 B4 = Button(F2, text=language_metadata["Start Exam"]
-            [default_language], command=update_word)
+[default_language], command=update_word)
 B4.grid(row=0, column=0)
 L2 = Label(F2, text="")
 L2.grid(row=1, column=0)
@@ -222,7 +221,7 @@ L2.configure(text="")
 E = Entry(F2)
 E.grid(row=2, column=0)
 B = Button(F2, text=language_metadata["Confirm"]
-           [default_language], command=confirm)
+[default_language], command=confirm)
 B.grid(row=3, column=0)
 B1 = Button(F2, text=language_metadata["Skip"][default_language], command=skip)
 B1.grid(row=4, column=0)
