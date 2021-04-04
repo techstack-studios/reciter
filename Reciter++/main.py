@@ -1,12 +1,12 @@
 import json
 import os
 import tkinter
-from tkinter import Frame, Button, Label, Menu, Entry, messagebox, END
+from tkinter import Frame, Button, Label, Listbox, Menu, Entry, messagebox, END
 
 # 初始化
 
 directory = os.path.dirname(__file__)  # 程序目录
-plan_selected = False  # 计划是否选择
+plan_selected = False  # 计划是否被选择
 default_language = 0  # 0-zh_cn, 1-en_us
 test_started = False  # 测试是否开始
 plans_file_exists = False  # 计划文件是否存在
@@ -14,7 +14,6 @@ language_filename = os.path.join(directory, "assets", "locale.json")  # 语言�
 plans_filename = "plans_file.json"  # 计划文件
 
 # 读入语言文件
-
 with open(language_filename, "r", encoding="utf-8") as obj:
     language_metadata = json.loads(obj.read())
 
@@ -51,7 +50,7 @@ def new_plan():
                                        language_metadata["CantBeEmpty"][default_language])  # 警告用户计划名不能为空
     else:  # 有计划名
         plans.append(plan_name)  # 添加计划
-        refresh_listbox(left_box, plans)  # 刷新计划列表
+        refresh_listbox(LB1, plans)  # 刷新计划列表
         entry1.delete(0, END)  # idk
 
 
@@ -60,7 +59,7 @@ def get_current_plan(event):
     index_of_words = 0
     plan_selected = True
     try:
-        current_plan_name = left_box.get(left_box.curselection()[0])
+        current_plan_name = LB1.get(LB1.curselection()[0])
     except IndexError:
         pass
     try:
@@ -74,17 +73,17 @@ def get_current_plan(event):
 
 frame1 = Frame(tk, width=200, height=200)  # 框架1
 frame1.grid(row=0, column=0)
-left_box = Listbox(frame1)  # 多行文本框 ——计划列表
-left_box.grid(row=0, column=0)
-left_box.bind("<<ListboxSelect>>", func=get_current_plan)  # 绑定事件 ——当前事件更新
+LB1 = Listbox(frame1)  # 多行文本框 ——计划列表
+LB1.grid(row=0, column=0)
+LB1.bind("<<ListboxSelect>>", func=get_current_plan)  # 绑定事件 ——当前事件更新
 entry1 = Entry(frame1)  # 文本框1
 entry1.grid(row=1, column=0)
-buttom2 = Button(
+bottom2 = Button(
     frame1, text=language_metadata["Create New Plan"][default_language], command=new_plan)  # 按钮2 ——创建计划
-buttom2.grid(row=2, column=0)
+bottom2.grid(row=2, column=0)
 
 for each in plans:
-    left_box.insert(END, each)  # 将计划加入计划列表
+    LB1.insert(END, each)  # 将计划加入计划列表
 
 # For debug
 word_li = {}
@@ -183,7 +182,7 @@ def skip():
 """Words List View"""
 frame3 = Frame(tk, width=200, height=200)
 frame3.grid(row=0, column=1)
-letf_box2 = Listbox(frame3)
+left_box2 = Listbox(frame3)
 left_box2.grid(row=0, column=0)
 E2 = Entry(frame3)
 E2.grid(row=1, column=0)
@@ -229,16 +228,14 @@ B3.grid(row=5, column=0)
 
 F2 = Frame(tk, width=200, height=200)
 F2.grid(row=0, column=2)
-B4 = Button(F2, text=language_metadata["Start Exam"]
-[default_language], command=update_word)
+B4 = Button(F2, text=language_metadata["Start Exam"][default_language], command=update_word)
 B4.grid(row=0, column=0)
 L2 = Label(F2, text="")
 L2.grid(row=1, column=0)
 L2.configure(text="")
 E = Entry(F2)
 E.grid(row=2, column=0)
-B = Button(F2, text=language_metadata["CONFIRM"] \
-    [default_language], command=confirm)
+B = Button(F2, text=language_metadata["CONFIRM"][default_language], command=confirm)
 B.grid(row=3, column=0)
 B1 = Button(F2, text=language_metadata["Skip"][default_language], command=skip)
 B1.grid(row=4, column=0)
