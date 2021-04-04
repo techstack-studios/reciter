@@ -5,12 +5,12 @@ from tkinter import Frame, Button, Listbox, Label, Menu, Entry, messagebox, END
 
 # Init
 
-cwd = os.path.dirname(__file__)
+directory = os.path.dirname(__file__)
 plan_selected = False
 default_language = 0  # 0-chn, 1-eng
 test_started = 0  # 0-not start   1-start
 plans_file_exists = False
-language_filename = os.path.join(cwd, "assets", "locale.json")
+language_filename = os.path.join(directory, "assets", "locale.json")
 plans_filename = "plans_file.json"
 
 with open(language_filename, "r", encoding="utf-8") as obj:
