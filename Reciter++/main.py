@@ -5,12 +5,12 @@ from tkinter import Frame, Listbox, Label, Menu, Entry, messagebox, END, ttk
 
 # Init
 
-cwd = os.path.dirname(__file__)
+directory = os.path.dirname(__file__)
 plan_selected = False
-default_language = 0  # 0-chn, 1-eng
-is_test_start = 0  # 0-not start   1-start
+default_language = 0  # 0-zh_cn, 1-en_us
+test_started = 0  # 0-not start   1-start
 plans_file_exists = False
-language_filename = os.path.join(cwd, "assets", "locale.json")
+language_filename = os.path.join(directory, "assets", "locale.json")
 plans_filename = "plans_file.json"
 
 with open(language_filename, "r", encoding="utf-8") as obj:
@@ -18,7 +18,7 @@ with open(language_filename, "r", encoding="utf-8") as obj:
 
 tk = tkinter.Tk()
 tk.title(language_metadata["TITLE"][default_language])
-tk.iconbitmap(os.path.join(cwd, "assets", "AppIcon.ico"))
+tk.iconbitmap(os.path.join(directory, "assets", "AppIcon.ico"))
 
 current_plan_name = ""
 plans = []
@@ -107,7 +107,7 @@ def show_result():
     global index_of_words, crosses, ticks
     E.delete(0, END)
     result = tkinter.Tk()
-    result.iconbitmap(os.path.join(cwd, "assets", "AppIcon.ico"))
+    result.iconbitmap(os.path.join(directory, "assets", "AppIcon.ico"))
     result.title(language_metadata["Result"][default_language])
     tick_l = Label(
         result, text=language_metadata["Ticks"][default_language] + str(ticks))
@@ -126,18 +126,18 @@ def show_result():
 
 
 def check_if_finished():
-    global is_test_start
+    global test_started
     if index_of_words == len(keys) - 1:
-        is_test_start = 0
+        test_started = 0
         return True
 
 
 def update_word():
-    global is_test_start
+    global test_started
 
     try:
         L2.configure(text=keys[index_of_words])
-        is_test_start = 1
+        test_started = 1
     except IndexError:
         tkinter.messagebox.showwarning(language_metadata["TITLE"][default_language],
                                        language_metadata["Plz ChooseP"][default_language])
@@ -146,8 +146,8 @@ def update_word():
 
 def confirm():
 
-    global index_of_words, ticks, crosses, is_test_start
-    if is_test_start == 0:
+    global index_of_words, ticks, crosses, test_started
+    if test_started == 0:
         tkinter.messagebox.showwarning(language_metadata["Title"][default_language],
                                        language_metadata["PlzStartTest"][default_language])
     else:
@@ -165,7 +165,7 @@ def confirm():
 
 def skip():
     global index_of_words, crosses
-    if is_test_start == 0:
+    if test_started == 0:
         tkinter.messagebox.showwarning(language_metadata["Title"][default_language],
                                        language_metadata["PlzStartTest"][default_language])
     else:
