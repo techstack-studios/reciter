@@ -18,6 +18,7 @@ with open(language_filename, "r", encoding="utf-8") as obj:
 
 tk = tkinter.Tk()
 tk.title(language_metadata["TITLE"][default_language])
+tk.iconbitmap(os.path.join(cwd, "assets", "AppIcon.ico"))
 
 current_plan_name = ""
 plans = []
@@ -106,6 +107,7 @@ def show_result():
     global index_of_words, crosses, ticks
     E.delete(0, END)
     result = tkinter.Tk()
+    result.iconbitmap(os.path.join(cwd, "assets", "AppIcon.ico"))
     result.title(language_metadata["Result"][default_language])
     tick_l = Label(
         result, text=language_metadata["Ticks"][default_language] + str(ticks))
