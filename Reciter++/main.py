@@ -17,7 +17,7 @@ plans_filename = "plans_file.json"  # 计划文件
 with open(language_filename, "r", encoding="utf-8") as obj:
     language_metadata = json.loads(obj.read())
 
-# 主界面声明
+# 界面属性设置
 tk = tkinter.Tk()
 tk.title(language_metadata["TITLE"][default_language])  # 窗口标题
 tk.iconbitmap(os.path.join(cwd, "assets", "AppIcon.ico"))  # 窗口图标
@@ -30,26 +30,24 @@ for each in all_files:  # 循环遍历
     if ".json" in each and each != "language_file.json":  # 判断是否不是语言文件
         plans.append(each.replace(".json", ""))  # 将计划文件加入计划列表
 
-"""Master Menu"""
-
-master_menu = Menu(tk)
-file_menu = Menu(master_menu)
+# 主目录
+master_menu = Menu(tk)  # 创建主窗口
+file_menu = Menu(master_menu)  # 窗口菜单
 master_menu.add_cascade(
-    label=language_metadata["FILE_MENU"][default_language], menu=file_menu)
-tk.config(menu=master_menu)
-""" --- """
+    label=language_metadata["FILE_MENU"][default_language], menu=file_menu)  # 加入“帮助”菜单
+tk.config(menu=master_menu)  # 设置菜单
 
-"""Plans View"""
 
+# 计划
 
 def new_plan():
-    global plans
+    global plans  #
     plan_name = E1.get()
-    if plan_name == '':
+    if plan_name == '':  # 没有计划名
         tkinter.messagebox.showwarning(language_metadata["TITLE"][default_language],
-                                       language_metadata["CantBeEmpty"][default_language])
-    else:
-        plans.append(plan_name)
+                                       language_metadata["CantBeEmpty"][default_language])  # 警告用户计划名不能为空
+    else:  # 有计划名
+        plans.append(plan_name)  # 添加计划
         refresh_listbox(LB, plans)
         E1.delete(0, END)
 
