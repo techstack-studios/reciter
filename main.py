@@ -6,9 +6,8 @@ import os
 
 """Init"""
 plan_selected = False
-default_language = 0
-# 0 - Chinese
-# 1 - English
+default_language = 0  # 0-chn, 1-eng
+is_test_start = 0  # 0-not start   1-start
 plans_file_exists = False
 language_filename = "language_file.json"
 plans_filename = "plans_file.json"
@@ -107,30 +106,35 @@ def show_result():
     E.delete(0, END)
     result = Tk()
     result.title(language_metadata["Result"][default_language])
-    Tick_L = Label(
+    tick_l = Label(
         result, text=language_metadata["Ticks"][default_language] + str(ticks))
-    Wrong_L = Label(
+    wrong_l = Label(
         result, text=language_metadata["Wrongs"][default_language] + str(crosses))
-    Tick_L.grid(row=0, column=0)
-    Wrong_L.grid(row=1, column=0)
-    Tick_percent_L = Label(result, text=language_metadata["Tick Percent"][default_language] + str(
+    tick_l.grid(row=0, column=0)
+    wrong_l.grid(row=1, column=0)
+    tick_percent_l = Label(result, text=language_metadata["Tick Percent"][default_language] + str(
         round((ticks / (ticks + crosses) * 100), 2)) + "%")
-    Wrong_percent_L = Label(result, text=language_metadata["Wrong Percent"][default_language] + str(
+    wrong_percent_l = Label(result, text=language_metadata["Wrong Percent"][default_language] + str(
         round((crosses / (ticks + crosses) * 100), 2)) + "%")
-    Tick_percent_L.grid(row=2, column=0)
-    Wrong_percent_L.grid(row=3, column=0)
+    tick_percent_l.grid(row=2, column=0)
+    wrong_percent_l.grid(row=3, column=0)
     index_of_words = crosses = ticks = 0
     L2.configure(text='')
 
 
 def check_if_finished():
+    global is_test_start
     if index_of_words == len(keys) - 1:
+        is_test_start = 0
         return True
 
 
 def update_word():
+    global is_test_start
+
     try:
         L2.configure(text=keys[index_of_words])
+        is_test_start = 1
     except IndexError:
         tkinter.messagebox.showwarning(language_metadata["Title"][default_language],
                                        language_metadata["Plz ChooseP"][default_language])
@@ -138,28 +142,37 @@ def update_word():
 
 
 def confirm():
-    global index_of_words, ticks, crosses
-    if E.get() == word_li[keys[index_of_words]]:
-        ticks += 1
+
+    global index_of_words, ticks, crosses, is_test_start
+    if is_test_start == 0:
+        tkinter.messagebox.showwarning(language_metadata["Title"][default_language],
+                                       language_metadata["PlzStartTest"][default_language])
     else:
-        crosses += 1
-    if check_if_finished():
-        show_result()
-        return
-    index_of_words += 1
-    update_word()
-    E.delete(0, END)
+        if E.get() == word_li[keys[index_of_words]]:
+            ticks += 1
+        else:
+            crosses += 1
+        if check_if_finished():
+            show_result()
+            return
+        index_of_words += 1
+        update_word()
+        E.delete(0, END)
 
 
 def skip():
     global index_of_words, crosses
-    crosses += 1
-    if check_if_finished():
-        show_result()
-        return
-    index_of_words += 1
-    update_word()
-    E.delete(0, END)
+    if is_test_start == 0:
+        tkinter.messagebox.showwarning(language_metadata["Title"][default_language],
+                                       language_metadata["PlzStartTest"][default_language])
+    else:
+        crosses += 1
+        if check_if_finished():
+            show_result()
+            return
+        index_of_words += 1
+        update_word()
+        E.delete(0, END)
 
 # For debug
 

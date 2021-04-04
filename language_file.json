@@ -20,6 +20,7 @@
     "Language": ["语言", "Language"],
     "CantBeEmpty": ["不能为空！", "Can't be empty!"],
     "Warning": ["警告", "Warning"],
-    "Plz ChooseP": ["请先选择计划！", "Please choose a plan first!"]
+    "Plz ChooseP": ["请先选择计划！", "Please choose a plan first!"],
+    "PlzStartTest": ["请先开始测试！", "Please start test first!"]
 }
 
