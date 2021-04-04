@@ -5,53 +5,52 @@ from tkinter import Frame, Button, Label, Menu, Entry, messagebox, END
 
 # Init
 
-directory = os.path.dirname(__file__)
-plan_selected = False
+directory = os.path.dirname(__file__)  # 程序目录
+plan_selected = False  # 计划是否选择
 default_language = 0  # 0-zh_cn, 1-en_us
-test_started = 0  # 0-not start   1-start
-plans_file_exists = False
-language_filename = os.path.join(directory, "assets", "locale.json")
-plans_filename = "plans_file.json"
+test_started = False  # 测试是否开始
+plans_file_exists = False  # 计划文件是否存在
+language_filename = os.path.join(directory, "assets", "locale.json")  # 语言文件所在目录
+plans_filename = "plans_file.json"  # 计划文件
+
+# 读入语言文件
 
 with open(language_filename, "r", encoding="utf-8") as obj:
     language_metadata = json.loads(obj.read())
 
+# 界面属性设置
 tk = tkinter.Tk()
-tk.title(language_metadata["TITLE"][default_language])
-tk.iconbitmap(os.path.join(directory, "assets", "AppIcon.ico"))
+tk.title(language_metadata["TITLE"][default_language])  # 窗口标题
+tk.iconbitmap(os.path.join(directory, "assets", "AppIcon.ico"))  # 窗口图标
 
-current_plan_name = ""
-plans = []
+# 读入计划
+current_plan_name = ""  # 当前计划
+plans = []  # 计划列表
 all_files = []
-all_files1 = os.listdir()
-for each in all_files1:
-    if ".json" in each and each != "language_file.json":
-        all_files.append(each.replace(".json", ""))
+all_files1 = os.listdir()  # 读取目录下所有文件
+for each in all_files1:  # 循环遍历
+    if ".json" in each and each != "language_file.json":  # 判断是否不是语言文件
+        all_files.append(each.replace(".json", ""))  # 将计划文件加入计划列表
 plans = all_files
 
-
-
-
-"""Master Menu"""
-
-master_menu = Menu(tk)
-file_menu = Menu(master_menu)
+# 主目录
+master_menu = Menu(tk)  # 创建主窗口
+file_menu = Menu(master_menu)  # 窗口菜单
 master_menu.add_cascade(
-    label=language_metadata["FILE_MENU"][default_language], menu=file_menu)
-tk.config(menu=master_menu)
-""" --- """
+    label=language_metadata["FILE_MENU"][default_language], menu=file_menu)  # 加入“帮助”菜单
+tk.config(menu=master_menu)  # 设置菜单
 
-"""Plans View"""
 
+# 计划
 
 def new_plan():
-    global plans
+    global plans  #
     plan_name = E1.get()
-    if plan_name == '':
+    if plan_name == '':  # 没有计划名
         tkinter.messagebox.showwarning(language_metadata["TITLE"][default_language],
-                                       language_metadata["CantBeEmpty"][default_language])
-    else:
-        plans.append(plan_name)
+                                       language_metadata["CantBeEmpty"][default_language])  # 警告用户计划名不能为空
+    else:  # 有计划名
+        plans.append(plan_name)  # 添加计划
         refresh_listbox(LB, plans)
         E1.delete(0, END)
 
@@ -145,7 +144,6 @@ def update_word():
 
 
 def confirm():
-
     global index_of_words, ticks, crosses, test_started
     if test_started == 0:
         tkinter.messagebox.showwarning(language_metadata["Title"][default_language],
@@ -238,8 +236,8 @@ L2.grid(row=1, column=0)
 L2.configure(text="")
 E = Entry(F2)
 E.grid(row=2, column=0)
-B = Button(F2, text=language_metadata["CONFIRM"]
-[default_language], command=confirm)
+B = Button(F2, text=language_metadata["CONFIRM"] \
+    [default_language], command=confirm)
 B.grid(row=3, column=0)
 B1 = Button(F2, text=language_metadata["Skip"][default_language], command=skip)
 B1.grid(row=4, column=0)
