@@ -5,9 +5,9 @@ from tkinter import Frame, Button, Listbox, Label, Menu, Entry, messagebox, END
 
 # Init
 
-directory = os.path.dirname(__file__)
+directory = os.path.dirname(__file__)  #
 plan_selected = False
-default_language = 0  # 0-chn, 1-eng
+default_language = 0  # 0-zh_cn, 1-en_us
 test_started = 0  # 0-not start   1-start
 plans_file_exists = False
 language_filename = os.path.join(directory, "assets", "locale.json")
@@ -18,7 +18,7 @@ with open(language_filename, "r", encoding="utf-8") as obj:
 
 tk = tkinter.Tk()
 tk.title(language_metadata["TITLE"][default_language])
-tk.iconbitmap(os.path.join(cwd, "assets", "AppIcon.ico"))
+tk.iconbitmap(os.path.join(directory, "assets", "AppIcon.ico"))
 
 current_plan_name = ""
 plans = []
@@ -107,7 +107,7 @@ def show_result():
     global index_of_words, crosses, ticks
     E.delete(0, END)
     result = tkinter.Tk()
-    result.iconbitmap(os.path.join(cwd, "assets", "AppIcon.ico"))
+    result.iconbitmap(os.path.join(directory, "assets", "AppIcon.ico"))
     result.title(language_metadata["Result"][default_language])
     tick_l = Label(
         result, text=language_metadata["Ticks"][default_language] + str(ticks))
