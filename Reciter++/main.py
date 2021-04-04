@@ -1,7 +1,7 @@
 import json
 import os
 import tkinter
-from tkinter import Frame, Button, Listbox, Label, Menu, Entry, END
+from tkinter import Frame, Button, Listbox, Label, Menu, Entry, messagebox, END
 
 # Init
 
