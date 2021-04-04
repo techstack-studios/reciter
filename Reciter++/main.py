@@ -1,9 +1,3 @@
-import json
-import os
-import tkinter
-from tkinter import Frame, Button, Label, Listbox, Menu, Entry, messagebox, END
-
-
 # For debug
 word_li = {}
 index_of_words = ticks = crosses = 0

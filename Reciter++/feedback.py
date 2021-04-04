@@ -1,4 +1,4 @@
-
+import tkinter
 
 # 测试结果反馈
 def show_result():

@@ -1,5 +1,5 @@
 
-"""Words Exam Window"""
+# Words Exam Window
 
 F2 = Frame(tk, width=200, height=200)
 F2.grid(row=0, column=2)
