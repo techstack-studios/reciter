@@ -3,7 +3,7 @@ import os
 import tkinter
 from tkinter import Frame, Button, Listbox, Label, Menu, Entry, messagebox, END
 
-# Init
+# 初始化
 
 cwd = os.path.dirname(__file__)  # 程序目录
 plan_selected = False  # 计划是否选择
@@ -20,7 +20,7 @@ with open(language_filename, "r", encoding="utf-8") as obj:
 # 界面属性设置
 tk = tkinter.Tk()
 tk.title(language_metadata["TITLE"][default_language])  # 窗口标题
-tk.iconbitmap(os.path.join(cwd, "assets", "AppIcon.ico"))  # 窗口图标
+# tk.iconbitmap(os.path.join(cwd, "assets", "AppIcon.ico"))  # 窗口图标
 
 # 读入计划
 current_plan_name = ""  # 当前计划
@@ -41,15 +41,15 @@ tk.config(menu=master_menu)  # 设置菜单
 # 计划
 
 def new_plan():
-    global plans  #
-    plan_name = E1.get()
+    global plans
+    plan_name = entry1.get()
     if plan_name == '':  # 没有计划名
         tkinter.messagebox.showwarning(language_metadata["TITLE"][default_language],
                                        language_metadata["CantBeEmpty"][default_language])  # 警告用户计划名不能为空
     else:  # 有计划名
         plans.append(plan_name)  # 添加计划
-        refresh_listbox(LB, plans)
-        E1.delete(0, END)
+        refresh_listbox(left_box, plans)  # 刷新计划列表
+        entry1.delete(0, END)  # idk
 
 
 def get_current_plan(event):
@@ -57,7 +57,7 @@ def get_current_plan(event):
     index_of_words = 0
     plan_selected = True
     try:
-        current_plan_name = LB.get(LB.curselection()[0])
+        current_plan_name = left_box.get(left_box.curselection()[0])
     except IndexError:
         pass
     try:
@@ -69,21 +69,19 @@ def get_current_plan(event):
     refresh_listbox(LB1, keys)
 
 
-F1 = Frame(tk, width=200, height=200)
-F1.grid(row=0, column=0)
-LB = Listbox(F1)
-LB.grid(row=0, column=0)
-LB.bind("<<ListboxSelect>>", func=get_current_plan)
-E1 = Entry(F1)
-E1.grid(row=1, column=0)
-B2 = Button(
-    F1, text=language_metadata["Create New Plan"][default_language], command=new_plan)
-B2.grid(row=2, column=0)
+frame1 = Frame(tk, width=200, height=200)  # 框架1
+frame1.grid(row=0, column=0)
+left_box = Listbox(frame1)  # 多行文本框 ——计划列表
+left_box.grid(row=0, column=0)
+left_box.bind("<<ListboxSelect>>", func=get_current_plan)  # 绑定事件 ——当前事件更新
+entry1 = Entry(frame1)  # 文本框1
+entry1.grid(row=1, column=0)
+buttom2 = Button(
+    frame1, text=language_metadata["Create New Plan"][default_language], command=new_plan)  # 按钮2 ——创建计划
+buttom2.grid(row=2, column=0)
 
 for each in plans:
-    LB.insert(END, each)
-
-""" --- """
+    left_box.insert(END, each)  # 将计划加入计划列表
 
 # For debug
 word_li = {}
@@ -99,11 +97,12 @@ def set_keys_2_word_li():
         keys.append(each[0])
 
 
+# 测试结果反馈
 def show_result():
     global index_of_words, crosses, ticks
     E.delete(0, END)
     result = tkinter.Tk()
-    result.iconbitmap(os.path.join(cwd, "assets", "AppIcon.ico"))
+#   result.iconbitmap(os.path.join(cwd, "assets", "AppIcon.ico"))
     result.title(language_metadata["Result"][default_language])
     tick_l = Label(
         result, text=language_metadata["Ticks"][default_language] + str(ticks))
@@ -126,6 +125,8 @@ def check_if_finished():
     if index_of_words == len(keys) - 1:
         test_started = 0
         return True
+    else:
+        return False
 
 
 def update_word():
@@ -177,17 +178,17 @@ def skip():
 
 
 """Words List View"""
-F3 = Frame(tk, width=200, height=200)
-F3.grid(row=0, column=1)
-LB1 = Listbox(F3)
-LB1.grid(row=0, column=0)
-E2 = Entry(F3)
+frame3 = Frame(tk, width=200, height=200)
+frame3.grid(row=0, column=1)
+letf_box2 = Listbox(frame3)
+left_box2.grid(row=0, column=0)
+E2 = Entry(frame3)
 E2.grid(row=1, column=0)
-L = Label(F3, text=language_metadata["Chinese"][default_language])
+L = Label(frame3, text=language_metadata["Chinese"][default_language])
 L.grid(row=2, column=0)
-E3 = Entry(F3)
+E3 = Entry(frame3)
 E3.grid(row=3, column=0)
-L1 = Label(F3, text=language_metadata["English"][default_language])
+L1 = Label(frame3, text=language_metadata["English"][default_language])
 L1.grid(row=4, column=0)
 
 
@@ -216,7 +217,7 @@ def add_word():
 
 
 B3 = Button(
-    F3, text=language_metadata["Add New Word"][default_language], command=add_word)
+    frame3, text=language_metadata["Add New Word"][default_language], command=add_word)
 B3.grid(row=5, column=0)
 
 """ --- """
