@@ -3,12 +3,14 @@ import os
 import tkinter
 from tkinter import Frame, Button, Listbox, Label, Menu, Entry, END
 
-"""Init"""
+# Init
+
+cwd = os.path.dirname(__file__)
 plan_selected = False
 default_language = 0  # 0-chn, 1-eng
 is_test_start = 0  # 0-not start   1-start
 plans_file_exists = False
-language_filename = "locale.json"
+language_filename = os.path.join(cwd, "assets", "locale.json")
 plans_filename = "plans_file.json"
 
 with open(language_filename, "r", encoding="utf-8") as obj:
@@ -26,14 +28,15 @@ for each in all_files1:
         all_files.append(each.replace(".json", ""))
 plans = all_files
 
-""" --- """
+
+
 
 """Master Menu"""
 
 master_menu = Menu(tk)
 file_menu = Menu(master_menu)
 master_menu.add_cascade(
-    label=language_metadata["File Menu"][default_language], menu=file_menu)
+    label=language_metadata["FILE_MENU"][default_language], menu=file_menu)
 tk.config(menu=master_menu)
 """ --- """
 
@@ -233,7 +236,7 @@ L2.grid(row=1, column=0)
 L2.configure(text="")
 E = Entry(F2)
 E.grid(row=2, column=0)
-B = Button(F2, text=language_metadata["Confirm"]
+B = Button(F2, text=language_metadata["CONFIRM"]
 [default_language], command=confirm)
 B.grid(row=3, column=0)
 B1 = Button(F2, text=language_metadata["Skip"][default_language], command=skip)
