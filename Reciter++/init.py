@@ -14,11 +14,11 @@ plans_filename = "plans_file.json"  # 计划文件
 
 # 读入语言文件
 with open(language_filename, "r", encoding="utf-8") as obj:
-    language_metadata = json.loads(obj.read())
+    locale = json.loads(obj.read())
 
 # 界面属性设置
 tk = tkinter.Tk()
-tk.title(language_metadata["TITLE"][default_language])  # 窗口标题
+tk.title(locale["TITLE"][default_language])  # 窗口标题
 tk.iconbitmap(os.path.join(directory, "assets", "AppIcon.ico"))  # 窗口图标
 
 # 读入计划

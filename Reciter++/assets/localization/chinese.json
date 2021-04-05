@@ -1,0 +1,19 @@
+{
+    "TITLE": "单词++",
+    "FILES": "文件",
+    "ORIGINAL": "单词原文",
+    "TRANSLATION": "单词翻译",
+    "LANGUAGE": "语言",
+    "RESULT": "结果",
+    "CORRECT": "正确：",
+    "INCORRECT": "错误：",
+    "ACCURACY": "正确率：",
+    "BUTTON_START_TEST": "开始测验",
+    "BUTTON_CONFIRM": "确认",
+    "BUTTON_SKIP": "跳过",
+    "BUTTON_ADD_WORD": "添加新词",
+    "BUTTON_NEW_WL": "创建新词单",
+    "WARNING_EMPTY": "不能为空！",
+    "WARNING_CHOOSE_WL": "请先选择词单！",
+    "WARNING_START_TEST": "请先开始测试！"
+}

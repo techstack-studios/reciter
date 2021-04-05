@@ -1,0 +1,19 @@
+{
+    "TITLE": "Reciter++",
+    "FILES": "Files",
+    "ORIGINAL": "Original Word",
+    "TRANSLATION": "Translation",
+    "LANGUAGE": "Language",
+    "RESULT": "Result",
+    "CORRECT": "Correct ",
+    "INCORRECT": "Incorrect ",
+    "ACCURACY": "Accuracy ",
+    "BUTTON_START_TEST": "Start Test",
+    "BUTTON_CONFIRM": "Confirm",
+    "BUTTON_SKIP": "Skip",
+    "BUTTON_ADD_WORD": "Add Term",
+    "BUTTON_NEW_WL": "New Word List",
+    "WARNING_EMPTY": "Can't be empty!",
+    "WARNING_CHOOSE_WL": "Please choose a word list first!",
+    "WARNING_START_TEST": "Please start the test first!"
+}
