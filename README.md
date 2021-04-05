@@ -5,3 +5,4 @@ JJ’s python competition project. Helps you recite Chinese poems and English wo
 - [ ] 删除计划、删除单词
 - [ ] 语言选择
 - [ ] UI改善
+- [ ] 添加背诗部分
