@@ -6,7 +6,7 @@ def new_plan():
     plan_name = entry1.get()
     if plan_name == '':  # 没有计划名
         tkinter.messagebox.showwarning(language_metadata["TITLE"][default_language],
-                                       language_metadata["CantBeEmpty"][default_language])  # 警告用户计划名不能为空
+                                       language_metadata["WARNING_EMPTY"][default_language])  # 警告用户计划名不能为空
     else:  # 有计划名
         plans.append(plan_name)  # 添加计划
         refresh_listbox(LB1, plans)  # 刷新计划列表
@@ -38,7 +38,7 @@ LB1.bind("<<ListboxSelect>>", func=get_current_plan)  # 绑定事件 ——当�
 entry1 = Entry(frame1)  # 文本框1
 entry1.grid(row=1, column=0)
 bottom2 = Button(
-    frame1, text=language_metadata["Create New Plan"][default_language], command=new_plan)  # 按钮2 ——创建计划
+    frame1, text=language_metadata["BUTTON_NEW_WL"][default_language], command=new_plan)  # 按钮2 ——创建计划
 bottom2.grid(row=2, column=0)
 
 for each in plans:

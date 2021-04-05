@@ -6,14 +6,14 @@ def show_result():
     E.delete(0, END)
     result = tkinter.Tk()
     result.iconbitmap(os.path.join(directory, "assets", "AppIcon.ico"))
-    result.title(language_metadata["Result"][default_language])
+    result.title(language_metadata["RESULT"][default_language])
     tick_l = Label(
-        result, text=language_metadata["Ticks"][default_language] + str(ticks))
+        result, text=language_metadata["CORRECT"][default_language] + str(ticks))
     wrong_l = Label(
-        result, text=language_metadata["Wrongs"][default_language] + str(crosses))
+        result, text=language_metadata["INCORRECT"][default_language] + str(crosses))
     tick_l.grid(row=0, column=0)
     wrong_l.grid(row=1, column=0)
-    tick_percent_l = Label(result, text=language_metadata["Tick Percent"][default_language] + str(
+    tick_percent_l = Label(result, text=language_metadata["ACCURACY"][default_language] + str(
         round((ticks / (ticks + crosses) * 100), 2)) + "%")
     wrong_percent_l = Label(result, text=language_metadata["Wrong Percent"][default_language] + str(
         round((crosses / (ticks + crosses) * 100), 2)) + "%")
